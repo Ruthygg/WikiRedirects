@@ -4,7 +4,7 @@ WikiRedirects
 R functions to find redirects and pageviews 
 
 __Author:__ Ruth Garcia-Gavilanes<br/> 
-__License:__ [None]
+__License:__ [None]<br/> 
 __Status:__ Dont know
 
 ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/WikidataR)
