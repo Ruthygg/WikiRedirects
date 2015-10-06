@@ -81,6 +81,7 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
   
   for (file in files) {
     
+    print(file)
     if (file.info(file)$size>0 ){
       
       views <- read.table(file, header =T, sep="\t")
