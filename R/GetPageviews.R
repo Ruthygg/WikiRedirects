@@ -137,7 +137,7 @@ get_Urls <- function(year_start,year_end,term,wiki){
 #'#'@param \dots Arguments to be passed to methods
 name_to_save_file<- function(term, ...)
 {
-  term<-gsub("\'","%27",term)
+  term<-  gsub("/","%2F",term, fixed = TRUE)
   return (term)
 }
 
