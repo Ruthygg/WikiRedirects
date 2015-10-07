@@ -34,7 +34,7 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
     results <- NULL
     
     for (url in urls){
-      print(sprintf("Crawling: %s",url))
+      
       flag <-TRUE
       result <- NULL
       count_flag <- 0
@@ -52,8 +52,8 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
         })
         
 
-      } 
-      
+      }  
+      print(sprintf("Saved : %s",url))
       if (!is(result,"error") ){
          results <- rbind(results,t)
       }
