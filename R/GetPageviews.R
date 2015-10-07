@@ -51,10 +51,13 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
           print(sprintf("Attept [%s]", count_flag))
         })
         
-        if (!is(result,"error") )
-          results <- rbind(results,t)
+
       } 
-    }
+      
+      if (!is(result,"error") ){
+         results <- rbind(results,t)
+      }
+  }
     
     return(results)
     
@@ -71,17 +74,19 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
   files <- list.files(input_dir, full.names = TRUE)
   total_views <- NULL
   
+  files <- list.files(input_dir, full.names = TRUE)
   t<- which(basename(files)=="total.txt" )
   
-  if(length(t))
+  while(length(t) > 0)
   {
     print(sprintf("There is a total file in %s! Erase the file!", input_dir))
     file.remove(files[t])
+    files <- list.files(input_dir, full.names = TRUE)
+    t<- which(basename(files)=="total.txt" )
   }
-  
+ 
   for (file in files) {
     
-    print(file)
     if (file.info(file)$size>0 ){
       
       views <- read.table(file, header =T, sep="\t")
