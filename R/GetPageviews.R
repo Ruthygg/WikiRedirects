@@ -45,6 +45,8 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
         count_flag <- count_flag +1
         result <- tryCatch({
         t<-getData(url)
+        results <- rbind(results,t)
+        print(sprintf("Added to time series : %s",url))
         },
         error=function(e) {
           print(sprintf("There is an error with %s", url ))
@@ -53,10 +55,7 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
         
 
       }  
-      print(sprintf("Saved : %s",url))
-      if (!is(result,"error") ){
-         results <- rbind(results,t)
-      }
+
   }
     
     return(results)
