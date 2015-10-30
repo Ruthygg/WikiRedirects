@@ -110,8 +110,8 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
     
   }
   total_views<- total_views[with(total_views,order(as.Date(date), decreasing=FALSE)),]
-  write.table(total_views, file = paste(input_dir,"total.txt", sep = "/"), sep = "\t", row.names = FALSE)
-  print(sprintf("File %s saved",paste(input_dir,"total.txt", sep = "/") ))
+  #write.table(total_views, file = paste(input_dir,"total.txt", sep = "/"), sep = "\t", row.names = FALSE)
+  #print(sprintf("File %s saved",paste(input_dir,"total.txt", sep = "/") ))
   
   return(total_views)
 }
