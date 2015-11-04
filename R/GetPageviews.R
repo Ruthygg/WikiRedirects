@@ -84,7 +84,7 @@ get_totalViewsinFolder <- function(input_dir, max_date,wiki, ...){
   }
  
   for (file in files) {
-    
+    print(file)
     while (file.info(file)$size<=0)
     {
       print(sprintf("File %s does not have data. We delete it and crawl it again in wikipedia for years 2008-2015!", file))
