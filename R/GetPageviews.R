@@ -66,12 +66,11 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
 #'@param input_dir the directory containing files with pageviews
 #'@param max_date The maximum date to consider the addition of pageviews
 #'#'@param \dots Arguments to be passed to methods
-get_totalViewsinFolder <- function(input_dir, max_date, ...){
+get_totalViewsinFolder <- function(input_dir, max_date,wiki, ...){
   
   
   
-  files <- list.files(input_dir, full.names = TRUE)
-  total_views <- NULL
+  total_views <- NA
   
   files <- list.files(input_dir, full.names = TRUE)
   t<- which(basename(files)=="total.txt" )
@@ -85,6 +84,14 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
   }
  
   for (file in files) {
+    
+    while (file.info(file)$size<=0)
+    {
+      print(sprintf("File %s does not have data. We delete it and crawl it again in wikipedia for years 2008-2015!", file))
+      file.remove(file)
+      results<- get_pageviews(2008, 2015,gsub("_2008_2015.txt","",basename(file)), wiki ) 
+      write.table(results[complete.cases(results),], file = file, sep = "\t", row.names = FALSE)
+    }
     
     if (file.info(file)$size>0 ){
       
@@ -106,13 +113,11 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
     } else  {
       print(sprintf("File %s does not have data. We delete it!", file))
       file.remove(file)
-      print("Value of total views:")
-      print(total_views)
+
     }
     
   }
-  if(is.na(total_views))
-    print ("Total views empty")
+ # There should be no nulls
   total_views<- total_views[with(total_views,order(as.Date(date), decreasing=FALSE)),]
   #write.table(total_views, file = paste(input_dir,"total.txt", sep = "/"), sep = "\t", row.names = FALSE)
   #print(sprintf("File %s saved",paste(input_dir,"total.txt", sep = "/") ))
