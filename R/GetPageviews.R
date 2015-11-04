@@ -68,9 +68,9 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
 #'#'@param \dots Arguments to be passed to methods
 get_totalViewsinFolder <- function(input_dir, max_date,wiki, ...){
   
-  
-  
-  total_views <- NA
+  print(input_dir)
+  files <- list.files(input_dir, full.names = TRUE)
+  total_views <- NULL
   
   files <- list.files(input_dir, full.names = TRUE)
   t<- which(basename(files)=="total.txt" )
@@ -84,7 +84,7 @@ get_totalViewsinFolder <- function(input_dir, max_date,wiki, ...){
   }
  
   for (file in files) {
-    print(file)
+    
     while (file.info(file)$size<=0)
     {
       print(sprintf("File %s does not have data. We delete it and crawl it again in wikipedia for years 2008-2015!", file))
