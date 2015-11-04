@@ -106,6 +106,8 @@ get_totalViewsinFolder <- function(input_dir, max_date, ...){
     } else  {
       print(sprintf("File %s does not have data. We delete it!", file))
       file.remove(file)
+      print("Value of total views:")
+      print(total_views)
     }
     
   }
