@@ -80,7 +80,7 @@ retrieve_wikidata_info <- function (title,wiki, ...)
             complete_term <- get_item(found_term[[count]]$id)
         
         if(
-          tolower(title)==tolower(as.character(unlist(complete_term$sitelinks$enwiki)[2])) | #if it is not the same as the corresponding link in English
+        #  tolower(title)==tolower(as.character(unlist(complete_term$sitelinks$enwiki)[2])) | #if it is not the same as the corresponding link in English
           tolower(title)==tolower(complete_term$label$en$value) # And also the title is not the same as the wikidata page
           ){
         
