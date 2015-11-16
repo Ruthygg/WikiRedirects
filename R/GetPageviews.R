@@ -68,7 +68,7 @@ get_pageviews <- function(year_start,year_end,term,wiki, ...){
 #'#'@param \dots Arguments to be passed to methods
 get_totalViewsinFolder <- function(input_dir, max_date,wiki, ...){
   
-  print(input_dir)
+
   files <- list.files(input_dir, full.names = TRUE)
   total_views <- NULL
   
