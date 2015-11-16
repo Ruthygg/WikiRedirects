@@ -43,7 +43,7 @@ get_redirect_wikipedia <- function (title, wiki, ...)
   
   if (is(result,"error")) { 
     print(sprintf("There was an error with title: %s ",title))
-    return (result)
+    return (NA)
   }
   else
     return(title)  
@@ -97,7 +97,7 @@ retrieve_wikidata_info <- function (title,wiki, ...)
   
   if (flag)
   {
-    print(sprintf("There was no match in wikidata for title %s or there was an error. Returns the same value", title )) 
+    print(sprintf("There was no match in wikidata for title %s or there was an error", title )) 
     complete_term <- NA
   }
   
