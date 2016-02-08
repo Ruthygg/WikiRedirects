@@ -33,7 +33,7 @@ get_redirect_wikipedia <- function (title, wiki, ...)
     
     # check if the title is a redirect
     if (length(grep("^\\#redirect", tolower(content$parse$wikitext$`*`))) > 0) {
-      print (sprintf("Found a redirect from %s", row$flight))
+      print (sprintf("Found a redirect from %s", title))
       title <- sub(".*\\[\\[(.*?)\\]\\].*", "\\1", content$parse$wikitext$`*`) 
     }
   },
@@ -81,6 +81,7 @@ retrieve_wikidata_info <- function (title,wiki, ...)
         
         if(
         #  tolower(title)==tolower(as.character(unlist(complete_term$sitelinks$enwiki)[2])) | #if it is not the same as the corresponding link in English
+          
           tolower(title)==tolower(complete_term$label$en$value) # And also the title is not the same as the wikidata page
           ){
         
