@@ -42,7 +42,7 @@ get_redirect_wikipedia <- function (title, wiki, ...)
   })
   
   if (is(result,"error")) { 
-    print(sprintf("There was an error with title: %s ",title))
+    #print(sprintf("There was an error with title: %s ",title))
     return (NA)
   }
   else
