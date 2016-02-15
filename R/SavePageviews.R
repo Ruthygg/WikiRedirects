@@ -26,13 +26,14 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
 {
 
   titles <- read.table(file_list_titles)
-  for (title in titles){
+  colnames(titles) <- c("title")
+  for (title in titles$title){
     title <- gsub(" ", "_", title)
-    file_name2<- paste(dir,"/",name_to_save_file(title),".txt", sep = "")
-    file_name<- paste(dir,"/",name_to_save_file(title), sep = "")
     results<- get_pageviews(year_start, year_end, title, wiki )
     if (nrow(results) >0){
-      dir.create(dir, showWarnings = FALSE, recursive = FALSE)
+      folder<- paste(dir,"/",name_to_save_file(title), sep = "")
+      file_name<- paste(folder,"/",name_to_save_file(title),".txt", sep = "")
+      dir.create(basename(file_name), showWarnings = FALSE, recursive = FALSE)
       write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
     }
     else
