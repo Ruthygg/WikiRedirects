@@ -20,10 +20,6 @@ Installation
 Not in CRAN yet:
 
     
-For the development version:
-
-    library(devtools)
-    devtools::install_github("Ruthygg/WikiRedirects")
     
 Dependencies
 ======
