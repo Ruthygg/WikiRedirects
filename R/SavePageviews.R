@@ -1,4 +1,3 @@
-#!/usr/bin/Rscript
 #'@title Uses the function of the class GetPageviews to save results
 #'by www.ruthygarcia.com
 #'@description \code{save_pageviews_no_redirects} saves the pageviews of a list of titles within a certain timewindow in years
@@ -40,13 +39,13 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
 }
 
 
-
-
-
-args <- commandArgs(TRUE)
-file_list_titles <- sprintf("%s",args[1])
-dir <- sprintf("%s",args[2])
-wiki <- sprintf("%s",args[3])
-year_start <- as.numeric(sprintf("%s",args[4]))
-year_end <- as.numeric(sprintf("%s",args[5]))
-save_pageviews_no_redirects(file_list_titles,  dir,wiki, year_start, year_end)
+#
+#
+#
+# args <- commandArgs(TRUE)
+# file_list_titles <- sprintf("%s",args[1])
+# dir <- sprintf("%s",args[2])
+# wiki <- sprintf("%s",args[3])
+# year_start <- as.numeric(sprintf("%s",args[4]))
+# year_end <- as.numeric(sprintf("%s",args[5]))
+# save_pageviews_no_redirects(file_list_titles,  dir,wiki, year_start, year_end)
