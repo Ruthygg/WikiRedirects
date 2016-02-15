@@ -35,8 +35,7 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
       write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
     else
       print(sprintf(" No results to save for %s", title) )
-
-}
+    }
 }
 
 
