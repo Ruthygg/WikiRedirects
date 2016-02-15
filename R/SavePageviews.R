@@ -1,7 +1,7 @@
 #'@title Uses the function of the class GetPageviews to save results
 #'by www.ruthygarcia.com
-#'@description \code{save_pageviews_no_redirects} saves the pageviews of a list of titles within a certain timewindow in years
-
+#'@description \code{save_pageviews_no_redirects} saves the pageviews of a list of titles within a certain timewindow in years.
+#' It does not consider redirects
 
 #' @param file_list_titles is a file that contains all Wikipedia titles in one column with no tabs.
 #' each title has to be in one row and it corresponds to the title of the wikipedia page.
@@ -31,9 +31,23 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
     file_name2<- paste(dir,"/",name_to_save_file(title),".txt", sep = "")
     file_name<- paste(dir,"/",name_to_save_file(title), sep = "")
     results<- get_pageviews(year_start, year_end, title, wiki )
-    if (nrow(results) >0)
+    if (nrow(results) >0){
+      dir.create(dir, showWarnings = FALSE, recursive = FALSE)
       write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
+    }
     else
       print(sprintf(" No results to save for %s", title) )
     }
 }
+
+
+#
+#
+#
+# args <- commandArgs(TRUE)
+# file_list_titles <- sprintf("%s",args[1])
+# dir <- sprintf("%s",args[2])
+# wiki <- sprintf("%s",args[3])
+# year_start <- as.numeric(sprintf("%s",args[4]))
+# year_end <- as.numeric(sprintf("%s",args[5]))
+# save_pageviews_no_redirects(file_list_titles,  dir,wiki, year_start, year_end)
