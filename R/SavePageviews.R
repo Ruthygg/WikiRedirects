@@ -37,6 +37,7 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
       print(sprintf(" No results to save for %s", title) )
 
 }
+}
 
 
 #
