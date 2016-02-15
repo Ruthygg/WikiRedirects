@@ -17,6 +17,7 @@ It is written in R.
 Example (to be run in R)
 
 rm(list=ls())
+
 library(devtools)
 source_url('https://raw.githubusercontent.com/Ruthygg/WikiRedirects/master/R/GetPageviews.R')
 source_url('https://raw.githubusercontent.com/Ruthygg/WikiRedirects/master/R/FindAllRedirects.R')
