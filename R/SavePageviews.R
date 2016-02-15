@@ -33,7 +33,7 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
     if (nrow(results) >0){
       folder<- paste(dir,"/",name_to_save_file(title), sep = "")
       file_name<- paste(folder,"/",name_to_save_file(title),".txt", sep = "")
-      dir.create(dirname(file_name), showWarnings = FALSE, recursive = FALSE)
+      dir.create(dirname(file_name), showWarnings = FALSE, recursive = TRUE)
       write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
     }
     else
