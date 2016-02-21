@@ -39,4 +39,4 @@ Dependencies
 ======
 * [methods](http://cran.r-project.org/web/packages/methods/index.html) and its dependencies.
 * [devtools](http://cran.r-project.org/web/packages/devtools/index.html) if you want to source these scripts directly.
-
+* [rjson](http://cran.r-project.org/web/packages/rjson/index.html) if you want to source these scripts directly.
