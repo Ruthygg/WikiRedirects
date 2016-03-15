@@ -20,7 +20,11 @@
 
 
 
-
+#'@param title  the name of the file
+#'@param year_start starting year of time window
+#'@param year_end last year of time window
+#'@param wiki The language of the wikipedia version
+#'@param dir The dir to save the file
 save_pageviews <- function (title, year_start, year_end, wiki, dir)
 {
   
