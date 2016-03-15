@@ -21,6 +21,28 @@
 
 
 
+save_pageviews <- function (title, year_start, year_end, wiki, dir)
+{
+  
+  
+  
+  file_name<- paste(dir,"/",name_to_save_file(title),"_",year_start,"_", year_end,".txt", sep = "")
+  
+  if (!file.exists(file_name) ) {
+    results<- get_pageviews(year_start, year_end, title, wiki )
+    if (nrow(results) >0)
+      write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
+    else
+      print(" No results to save")
+  }
+  else
+    print(sprintf("File %s already exists", file_name))
+  
+  
+  
+  
+}
+
 
 save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_start=2008, year_end=2016 )
 {
