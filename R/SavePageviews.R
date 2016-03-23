@@ -48,14 +48,14 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
 }
 
 
-storePageviewsAndRedirects <- function (titles_df, year.start, year.end, output.folder ) {
+storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder ) {
 
 ########## Finding the pageviews of the page and all redirects
 
-for (i in 1: nrow(titles_df) )
+for (i in 1: nrow(df) )
 {
   
-  target <- lapply(complete_df[i,1],function (x) solve_redirect(x))
+  target <- lapply(df[i,1],function (x) solve_redirect(x))
   target<- gsub(" ", "_", target)
   dir <- paste(output.folder,"/",name_to_save_file(target), sep = "")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
