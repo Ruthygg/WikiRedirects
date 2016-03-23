@@ -30,7 +30,7 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
   
   
   
-  file_name<- paste(dir,"/",name_to_save_file(title),"_",year_start,"_", year_end,".txt", sep = "")
+  file_name<- paste(dir,"/",nameToSaveFile(title),"_",year_start,"_", year_end,".txt", sep = "")
   
   if (!file.exists(file_name) ) {
     results<- get_pageviews(year_start, year_end, title, wiki )
@@ -45,6 +45,15 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
   
   
   
+}
+
+
+nameToSaveFile<- function(term, ...) {
+  #'@param term the name of file to be saved and removes all possible signs that can cause interference 
+  #'#'@param \dots Arguments to be passed to methods
+  #'
+  term<-  gsub("/","%2F",term, fixed = TRUE)
+  return (term)
 }
 
 
@@ -65,7 +74,7 @@ for (i in 1: nrow(df) )
   
   target <- lapply(df[i,1],function (x) solveRedirect(x, wiki))
   target<- gsub(" ", "_", target)
-  dir <- paste(output.folder,"/",name_to_save_file(target), sep = "")
+  dir <- paste(output.folder,"/",nameToSaveFile(target), sep = "")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   save_pageviews(target, year.start, year.end, "en", dir)
   titles <- getAllRedirects(target, wiki)
@@ -90,8 +99,8 @@ save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_
     title <- gsub(" ", "_", title)
     results<- get_pageviews(year_start, year_end, title, wiki )
     if (nrow(results) >0){
-      folder<- paste(dir,"/",name_to_save_file(title), sep = "")
-      file_name<- paste(folder,"/",name_to_save_file(title),".txt", sep = "")
+      folder<- paste(dir,"/",nameToSaveFile(title), sep = "")
+      file_name<- paste(folder,"/",nameToSaveFile(title),".txt", sep = "")
       dir.create(dirname(file_name), showWarnings = FALSE, recursive = TRUE)
       write.table(results[complete.cases(results),], file = file_name, sep = "\t", row.names = FALSE)
     }
