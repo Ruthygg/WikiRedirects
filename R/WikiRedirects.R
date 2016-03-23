@@ -5,7 +5,7 @@
 #'@seealso \code{\link{solveRedirect}} Finds the latest version title of a page title (in case it is redirect)
 
 
-solveRedirect <- function (title, wiki) {
+solveRedirect <- function (title, wiki="en") {
   #  Returns the current title page
   #' Args:
   #'  title: The page title in wikipedia
@@ -29,7 +29,7 @@ solveRedirect <- function (title, wiki) {
 
 
 #get_redirects_from_wikipedia_page <- function(page)
-getAllRedirects<- function(page, wiki)
+getAllRedirects<- function(page, wiki="en")
 {
   #  Returns all the redirects of a page
   #' Args:
@@ -39,7 +39,7 @@ getAllRedirects<- function(page, wiki)
   #'  All the redirects for that language
   
   
-  json_url<-paste("https://",en,".wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bltitle=",page,"&bllimit=max&format=json", sep="")
+  json_url<-paste("https://",wiki,".wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bltitle=",page,"&bllimit=max&format=json", sep="")
   json_data <- fromJSON(file=json_url)
   redirects<-json_data[['query']][['backlinks']]
   temp <-  rep(NA, length(redirects))

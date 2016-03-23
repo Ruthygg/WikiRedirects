@@ -63,12 +63,12 @@ storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder,
 for (i in 1: nrow(df) )
 {
   
-  target <- lapply(df[i,1],function (x) solveRedirect(x))
+  target <- lapply(df[i,1],function (x) solveRedirect(x, wiki))
   target<- gsub(" ", "_", target)
   dir <- paste(output.folder,"/",name_to_save_file(target), sep = "")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   save_pageviews(target, year.start, year.end, "en", dir)
-  titles <- getAllRedirects(target)
+  titles <- getAllRedirects(target, wiki)
   titles <- gsub(" ", "_", titles)
   if ( length(titles) >0)
     for (j in 1:  length(titles))
