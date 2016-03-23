@@ -48,14 +48,22 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
 }
 
 
-storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder ) {
+storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder, wiki ) {
 
 ########## Finding the pageviews of the page and all redirects
-
+  #  Returns all the pageviews per date of all the redirects of a Wikipedia article (including latest version)
+  #' Args:
+  #'  df: The list of titles in a data frame with one column
+  #'  year.start : the starting year to collect info (note that it is available from 2008 onwards)
+  #'  year.end   : the ending year to collect info (note that it is available from 2008 onwards)
+  #'  output.folder : the dir where each folder with the Wikipedia article title name will be created
+  #'  wiki: language of the page
+  #' Returns:
+  #'  Folders containing in one file all the viwership data per redirect
 for (i in 1: nrow(df) )
 {
   
-  target <- lapply(df[i,1],function (x) solve_redirect(x))
+  target <- lapply(df[i,1],function (x) solveRedirect(x))
   target<- gsub(" ", "_", target)
   dir <- paste(output.folder,"/",name_to_save_file(target), sep = "")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
