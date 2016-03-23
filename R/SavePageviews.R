@@ -145,7 +145,7 @@ storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.
     
     if(nrow(total_views) >0 ){
       dir.create(dirname(output.file), recursive=TRUE,  showWarnings = FALSE)
-      write.table(total_views,file=output_file, sep = "\t", row.names = FALSE)
+      write.table(total_views,file=output.file, sep = "\t", row.names = FALSE)
     }else
       print(sprintf(" The page %s did not provide any result", file) )
     
