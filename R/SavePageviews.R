@@ -48,6 +48,31 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
 }
 
 
+storePageviewsAndRedirects <- function (titles_df, year.start, year.end, output.folder ) {
+
+########## Finding the pageviews of the page and all redirects
+
+for (i in 1: nrow(titles_df) )
+{
+  
+  target <- lapply(complete_df[i,1],function (x) solve_redirect(x))
+  target<- gsub(" ", "_", target)
+  dir <- paste(output.folder,"/",name_to_save_file(target), sep = "")
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  save_pageviews(target, year.start, year.end, "en", dir)
+  titles <- getAllRedirects(target)
+  titles <- gsub(" ", "_", titles)
+  if ( length(titles) >0)
+    for (j in 1:  length(titles))
+      save_pageviews(titles[j], year.start, year.end, "en", dir)
+  
+  
+}
+
+
+}
+
+
 save_pageviews_no_redirects <- function (file_list_titles,  dir,wiki="en", year_start=2008, year_end=2016 )
 {
 
