@@ -161,7 +161,7 @@ name_to_save_file<- function(term, ...)
 getData <- function(url){
   require(rjson)
   raw.data <- readLines(url, warn="F") 
-  rd  <- rjson::fromJSON(file=raw.data)
+  rd  <- rjson::fromJSON(raw.data)
   
   if(length(rd$daily_views)==0) {
     print("d is NA")
