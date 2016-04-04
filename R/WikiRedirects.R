@@ -15,7 +15,7 @@ solveRedirect <- function (title, wiki="en") {
   title <-  gsub(" ","_",title)
   title<- URLencode(title, reserved = TRUE)
   page_title_url<- paste("https://", wiki,".wikipedia.org/w/api.php?action=query&titles=",title, "&redirects&format=json", sep="")
-  json_data <- fromJSON(file=page_title_url)
+  json_data <- rjson::fromJSON(file=page_title_url)
   
   if (length(json_data$query$redirects) > 1)
     print(sprintf("Page %s has more than 1 redirect. Will take the first.", title))
@@ -40,7 +40,7 @@ getAllRedirects<- function(page, wiki="en")
   
   
   json_url<-paste("https://",wiki,".wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bltitle=",page,"&bllimit=max&format=json", sep="")
-  json_data <- fromJSON(file=json_url)
+  json_data <- rjson::fromJSON(file=json_url)
   redirects<-json_data[['query']][['backlinks']]
   temp <-  rep(NA, length(redirects))
   if (length(redirects) >0 )
