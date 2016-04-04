@@ -22,8 +22,10 @@ solveRedirect <- function (title, wiki="en") {
   
   redirect <-  gsub(" ","_",json_data$query$redirects[[1]]$to)
   
-  if(length(redirect)<=0)
+  if(length(redirect)<=0){
     redirect <- title
+    redirect<-URLdecode(redirect) 
+  }
   return(redirect)
 }
 

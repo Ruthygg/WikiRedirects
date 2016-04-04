@@ -57,7 +57,7 @@ nameToSaveFile<- function(term, ...) {
 }
 
 
-storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder, wiki ) {
+storePageviewsAndRedirects <- function (df, year.start, year.end, output.folder, wiki="en" ) {
 
 ########## Finding the pageviews of the page and all redirects
   #  Returns all the pageviews per date of all the redirects of a Wikipedia article (including latest version)
