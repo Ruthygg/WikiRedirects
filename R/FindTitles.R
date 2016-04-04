@@ -14,7 +14,8 @@
 #' title <- cleanQuotes(gsub(" ", "_", "Agenda 2010"))
 #' redirect <- get_redirects(title, "dewiki")
 #' # results as of October 5 2015 Jens_Ammoser\tAgenda_2010 Agenda2010\tAgenda_2010 Ammoser\tAgenda_2010
-
+library(WikidataR)
+library(WikipediR)
 cleanQuotes<- function(word)
 {
   word<-gsub("'", "\\'",word, fixed=TRUE)
