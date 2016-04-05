@@ -141,7 +141,7 @@ storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.
     total_views$rd.views <- total_views$rd.views/total_views$daily_views
     total_views <- subset(total_views, select=c(date,rd.views))
     total_views<-total_views[with(total_views,order(as.Date(date), decreasing=FALSE)),]
-    output.file <- paste(pageviews.output.dir,target,"total.txt", sep="/")
+    output.file <- paste(pageviews.output.dir,nameToSaveFile(target),"total.txt", sep="/")
     
     if(nrow(total_views) >0 ){
       dir.create(dirname(output.file), recursive=TRUE,  showWarnings = FALSE)
