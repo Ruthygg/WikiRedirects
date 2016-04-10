@@ -76,7 +76,7 @@ for (i in 1: nrow(df) )
   target<- gsub(" ", "_", target)
   dir <- paste(output.folder,"/",nameToSaveFile(target), sep = "")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-  save_pageviews(target, year.start, year.end, "en", dir)
+  save_pageviews(target, year.start, year.end, wiki, dir)
   titles <- getAllRedirects(target, wiki)
   titles <- gsub(" ", "_", titles)
   if ( length(titles) >0)
@@ -118,7 +118,7 @@ for (i in 1: nrow(df) ) {
 
 }
 
-storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir, wiki="en") {
+storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir, flag, wiki) {
 
   ########## Normalizes the pageviews according to a file containing the max views of a wikipedia page
   #  Returns a directory with normalized pageviews
@@ -130,8 +130,7 @@ storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.
   #' Subfolders and files containing normalized views stored in pageviews.output.dir
   ########## Adding all views into a single file per item
   for (i in 1: nrow(df) ) {
-    
-    target <- lapply(df[i,1],function (x) solveRedirect(x, wiki))
+    ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), targe <- df[i,1])
     target<- gsub(" ", "_", target)
     dir <- paste(pageviews.sum.folder,"/",nameToSaveFile(target), sep = "")
     file <- paste(dir,"total.txt", sep="/")
