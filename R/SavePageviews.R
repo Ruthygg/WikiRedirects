@@ -118,7 +118,7 @@ for (i in 1: nrow(df) ) {
 
 }
 
-storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir,wiki) {
+storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir, wiki="en") {
 
   ########## Normalizes the pageviews according to a file containing the max views of a wikipedia page
   #  Returns a directory with normalized pageviews
