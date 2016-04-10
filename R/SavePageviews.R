@@ -105,6 +105,7 @@ for (i in 1: nrow(df) ) {
   target <- lapply(df[i,1],function (x) solveRedirect(x, wiki))
   target<- gsub(" ", "_", target)
   dir <- paste(source.folder,"/",nameToSaveFile(target), sep = "")
+  
   views_sum <- get_totalViewsinFolder(dir, limit, "enwiki" )
   if(nrow(views_sum) > 0) {
     dir<- paste(output.folder, "/", basename(dir), sep="")
@@ -117,7 +118,7 @@ for (i in 1: nrow(df) ) {
 
 }
 
-storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir) {
+storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.dir,wiki) {
 
   ########## Normalizes the pageviews according to a file containing the max views of a wikipedia page
   #  Returns a directory with normalized pageviews
