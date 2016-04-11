@@ -53,7 +53,7 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
 
 
 
-complementPageviews <- function (df, source.folder, end.date, project.code="en.wikipedia",platform.code="all")
+complementPageviews <- function (df, source.folder, end.date, project.code="en.wikipedia",platform.code="all", wiki="en")
 {
   
   
