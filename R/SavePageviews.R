@@ -130,7 +130,7 @@ storeNormalizedViews<- function (df,df2, pageviews.sum.folder, pageviews.output.
   #' Subfolders and files containing normalized views stored in pageviews.output.dir
   ########## Adding all views into a single file per item
   for (i in 1: nrow(df) ) {
-    ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), targe <- df[i,1])
+    ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), target <- df[i,1])
     target<- gsub(" ", "_", target)
     dir <- paste(pageviews.sum.folder,"/",nameToSaveFile(target), sep = "")
     file <- paste(dir,"total.txt", sep="/")
