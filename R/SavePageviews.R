@@ -19,6 +19,7 @@
 #' Save all the pageviews of my list in /Users/ruthgarcia/test
 
 library(pageviews)
+library(utils)
 
 
 #'@param title  the name of the file
@@ -82,7 +83,7 @@ complementPageviews <- function (df, source.folder, end.date, platform.code="all
     max.date<-paste(gsub("-", "", max.date), "00", sep = "")
     end.date.temp<- as.character(end.date)
     end.date.temp<-paste(gsub("-", "", end.date), "00", sep = "")
-    missing<-article_pageviews(article = nameToSaveFile(target),  start= max.date, end =end.date.temp , platform=platform.code)
+    missing<-article_pageviews(article = URLencode(target),  start= max.date, end =end.date.temp , platform=platform.code)
     missing <- subset(missing, select=c(timestamp, views) )
     colnames(missing) <- c("date", "rd.views")
     missing$date <- as.Date(substr(missing$date, 1, 8), format="%Y%m%d")
