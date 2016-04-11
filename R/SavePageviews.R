@@ -87,7 +87,7 @@ complementPageviews <- function (df, source.folder, end.date, platform.code="all
     missing$date <- as.Date(substr(missing$date, 1, 8), format="%Y%m%d")
     page.views <- rbind(page.views, missing)
     write.table( page.views, file = file, sep = "\t", row.names = FALSE)
-    print(sprint("Saved additional pageviews in %s" , file) )
+    print(sprintf("Saved additional pageviews in %s" , file) )
     }
   
     }
