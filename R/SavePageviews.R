@@ -90,7 +90,7 @@ for (i in 1: nrow(df) )
 }
 
 
-addAndStoredAllRedirects <- function (df, limit, source.folder, output.folder, wiki ) {
+addAndStoredAllRedirects <- function (df, limit, source.folder, output.folder, flag, wiki ) {
   ########## Add all the viwership data files per subfolder 
   #  Returns a directory with the addition of viwership data per subdirectory (a total.txt in each subdirectory)
   #' Args:
@@ -102,7 +102,7 @@ addAndStoredAllRedirects <- function (df, limit, source.folder, output.folder, w
   #' A folder with subdirectories, each containing the addition in a total.txt of all redirects
 ########## Adding all views into a single file per item
 for (i in 1: nrow(df) ) {
-  target <- lapply(df[i,1],function (x) solveRedirect(x, wiki))
+  ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), target <- df[i,1])
   target<- gsub(" ", "_", target)
   dir <- paste(source.folder,"/",nameToSaveFile(target), sep = "")
   
