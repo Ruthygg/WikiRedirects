@@ -18,6 +18,7 @@
 #' #
 #' Save all the pageviews of my list in /Users/ruthgarcia/test
 
+library(pageviews)
 
 
 #'@param title  the name of the file
@@ -25,6 +26,8 @@
 #'@param year_end last year of time window
 #'@param wiki The language of the wikipedia version
 #'@param dir The dir to save the file
+#'
+#'
 save_pageviews <- function (title, year_start, year_end, wiki, dir)
 {
   
@@ -46,6 +49,54 @@ save_pageviews <- function (title, year_start, year_end, wiki, dir)
   
   
 }
+
+
+
+complementPageviews <- function (df, source.folder, end.date, platform.code="all")
+{
+  
+  
+  
+  ########## Finding the pageviews of the page and all redirects
+  #  Returns all the pageviews per date of all the redirects of a Wikipedia article (including latest version)
+  #' Args:
+  #'  df: The dataframe with the titles in the first column
+  #'  source.folder : the folder where to obtain the pageviews sum e.g pageviews_sum
+  #'  end.date : the max date up to where we will complement the views
+  #'  platform.code : The platform the pageviews came from; one of "all", "desktop", "mobile-web" and "mobile-app". Set to "all" by default (same as pageviews package)
+  #'  returns:
+  #'  Nothing, it saves in the same file the complemented version
+ 
+  for (i in 1: nrow(df) )
+  {
+    
+    ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), target <- df[i,1])
+    target<- gsub(" ", "_", target)
+    file <- paste(source.folder,nameToSaveFile(target), "total.txt"  ,sep = "/")
+    page.views <- read.table( file, header=T, sep="\t", stringsAsFactors=FALSE)
+    page.views$date <- as.Date(page.views$date)  
+    max.date <- page.views$date[nrow(page.views)]
+    if( max.date < end.date ){
+    max.date<- as.character(max.date)
+    max.date<-paste(gsub("-", "", max.date), "00", sep = "")
+    end.date<- as.character(end.date)
+    end.date<-paste(gsub("-", "", end.date), "00", sep = "")
+    missing<-article_pageviews(article = target,  start= max.date, end =end.date , platform=platform.code)
+    missing <- subset(missing, select=c(timestamp, views) )
+    colnames(missing) <- c("date", "rd.views")
+    missing$date <- as.Date(substr(missing$date, 1, 8), format="%Y%m%d")
+    page.views <- rbind(page.views, missing)
+    write.table( page.views, file = file, sep = "\t", row.names = FALSE)
+    print(sprint("Saved additional pageviews in %s" , file) )
+    }
+  
+    }
+  
+  
+  
+  
+}
+
 
 
 nameToSaveFile<- function(term, ...) {
