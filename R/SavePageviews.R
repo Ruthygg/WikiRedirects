@@ -83,7 +83,21 @@ complementPageviews <- function (df, source.folder, end.date, flag, project.code
     max.date<-paste(gsub("-", "", max.date), "00", sep = "")
     end.date.temp<- as.character(end.date)
     end.date.temp<-paste(gsub("-", "", end.date), "00", sep = "")
-    missing<-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= max.date, end =end.date.temp , platform=platform.code)
+    attempts <- 10
+    result <- tryCatch({(x * 3)}, error = function(e) e) 
+    while (attempts >0 & inherits(result, "error"))
+    {
+      result <- tryCatch( {
+        missing<-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= max.date, end =end.date.temp , platform=platform.code)
+      }, error = function(e) e )
+     
+      if(inherits(result, "error")) 
+      {
+        print(sprintf("Error for %s ", target))
+        attempts <- attempts -1
+      }
+    }
+    
     missing <- subset(missing, select=c(timestamp, views) )
     colnames(missing) <- c("date", "rd.views")
     missing$date <- as.Date(substr(missing$date, 1, 8), format="%Y%m%d")
