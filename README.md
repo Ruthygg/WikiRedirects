@@ -12,7 +12,7 @@ __Status:__ Dont know
 Description
 ======
 WikiRedirects contains functions that allow to extract all redirects of a Wikipedia title in any language within Wikimedia. 
-It also contains functions to crawl pageviews of a title or list of titles and save  the pageviews locally
+It also contains functions to crawl pageviews of a title or list of titles and save  the pageviews locally. The pageviews are extracted from http://stats.grok.se. Data availability starts from Dec-2007. From 2015 there is an R API devoted to extract pageviews https://github.com/ironholds/pageviews. 
 It is written in R.
 Example (to be run in R)
 
