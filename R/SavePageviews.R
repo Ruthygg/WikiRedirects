@@ -148,7 +148,7 @@ for (i in 1: nrow(df) )
   titles <- gsub(" ", "_", titles)
   if ( length(titles) >0)
     for (j in 1:  length(titles))
-      save_pageviews(titles[j], year.start, year.end, "en", dir)
+      save_pageviews(titles[j], year.start, year.end, wiki, dir)
   
   
 }
@@ -163,6 +163,7 @@ addAndStoredAllRedirects <- function (df, limit, source.folder, output.folder, f
   #' Args:
   #'  df: The list of titles in a data frame with one column
   #'  limit : The date limiting the views
+  #'  flag: where to use a redirect for the target or not (not very clear)
   #'  output.folder : the dir where each folder with the Wikipedia article title name will be created
   #'  wiki: language of the page
   #' Returns:
