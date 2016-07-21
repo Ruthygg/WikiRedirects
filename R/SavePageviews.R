@@ -157,32 +157,33 @@ for (i in 1: nrow(df) )
 }
 
 
-addAndStoredAllRedirects <- function (df, limit, source.folder, output.folder, flag, wiki ) {
+addAndStoredAllRedirects <- function (limit, source.folder, output.folder, flag, wiki ) {
   ########## Add all the viwership data files per subfolder 
   #  Returns a directory with the addition of viwership data per subdirectory (a total.txt in each subdirectory)
   #' Args:
-  #'  df: The list of titles in a data frame with one column
   #'  limit : The date limiting the views
-  #'  flag: where to use a redirect for the target or not (not very clear)
+  #'  source.folder : the folder where all the additions will be made based on the subfolders
   #'  output.folder : the dir where each folder with the Wikipedia article title name will be created
-  #'  wiki: language of the page
+  #'  wiki: language of the page (really not necesary, it is not used)
   #' Returns:
   #' A folder with subdirectories, each containing the addition in a total.txt of all redirects
 ########## Adding all views into a single file per item
-for (i in 1: nrow(df) ) {
-  ifelse(flag, target <- lapply(df[i,1],function (x) solveRedirect(x, wiki)), target <- df[i,1])
-  target<- gsub(" ", "_", target)
-  dir <- paste(source.folder,"/",nameToSaveFile(target), sep = "")
+
   
-  views_sum <- get_totalViewsinFolder(dir, limit, "enwiki" )
-  if(nrow(views_sum) > 0) {
-    dir<- paste(output.folder, "/", basename(dir), sep="")
-    dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-    file <- paste(dir,"/total.txt", sep="/")
-    write.table(views_sum, file = file, sep = "\t", row.names = FALSE)
-  }else
-    print(sprintf(" The page %s did not provide any result", dir) )
-}
+sub.folders<- list.files(source.folder, full.names = TRUE)
+    
+for (folder in sub.folders ) {
+  
+      views_sum <- get_totalViewsinFolder(folder, limit, wiki )
+      
+      if(nrow(views_sum) > 0) {
+        dir<- paste(output.folder, "/", basename(folder), sep="")
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+        file <- paste(dir,"/total.txt", sep="/")
+        write.table(views_sum, file = file, sep = "\t", row.names = FALSE)
+      }else
+        print(sprintf(" The page %s did not provide any result", dir) )
+      }
 
 }
 
