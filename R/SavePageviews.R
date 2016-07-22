@@ -148,7 +148,12 @@ for (i in 1: nrow(df) )
   titles <- gsub(" ", "_", titles)
   if ( length(titles) >0)
     for (j in 1:  length(titles))
-      save_pageviews(titles[j], year.start, year.end, wiki, dir)
+      tryCatch({
+        save_pageviews(titles[j], year.start, year.end, wiki, dir)
+      },error = function(e) {
+        print(sprintf("There was an error with : %s", titles[j],  e))
+      }
+      )
   
   
 }
