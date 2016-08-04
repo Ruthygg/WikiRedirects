@@ -143,15 +143,16 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
       pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
       table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=max(pageviews$views), min=min(pageviews$views)))
     },
-    error = function(e) 
+    error = function(e) e
       
-      print(sprintf("There was an error with %s: %s", target, e))
+      
     
     )
     
-    if( inherits(result, "error") )
+    if( inherits(result, "error") ){
+      print(sprintf("There was an error with %s: %s", target, result))
       table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=NA ,sd = NA, max=NA, min=NA) )
-    
+    }
   }
   
 return(table.result)  
