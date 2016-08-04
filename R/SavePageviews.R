@@ -133,7 +133,7 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
   #'  A dataframe made of the titles of the articles and their corresponding views
   #'  Example of API : https://www.r-bloggers.com/new-data-sources-for-r/
   
-  table.result<-
+  table.result<-NULL
   for (title in list.titles )
   {
     
