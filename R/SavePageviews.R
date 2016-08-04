@@ -139,8 +139,8 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
     target <- lapply(title,function (x) solveRedirect(x, wiki))
     target<- gsub(" ", "_", target)
     print(target)
-    pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
     result<- tryCatch({
+      pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
       table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=max(pageviews$views), min=min(pageviews$views)))
     },
     error = function(e) 
