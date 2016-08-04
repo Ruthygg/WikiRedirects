@@ -137,7 +137,7 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
   for (title in list.titles )
   {
     
-    title <- lapply(title,function (x) solveRedirect(x, wiki))
+    target <- lapply(title,function (x) solveRedirect(x, wiki))
     target<- gsub(" ", "_", target)
     print(title )
     pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
