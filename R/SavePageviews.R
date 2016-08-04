@@ -115,6 +115,47 @@ complementPageviews <- function (df, source.folder, end.date, flag, project.code
 
 
 
+
+
+getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, project.code="en.wikipedia",platform.code="all", wiki="en")
+{
+  
+  
+  
+  ########## Finding the pageviews of the page and all redirects
+  #  Returns all the pageviews per date of all the redirects of a Wikipedia article (including latest version)
+  #' Args:
+  #'  list.titles : the list of wikipedia articles
+  #'  start.date  : the starting date of the pageviews
+  #'  end.date    : the max date up to where we will complement the views
+  #'  platform.code : The platform the pageviews came from; one of "all", "desktop", "mobile-web" and "mobile-app". Set to "all" by default (same as pageviews package)
+  #'  returns:
+  #'  A dataframe made of the titles of the articles and their corresponding views
+  #'  Example of API : https://www.r-bloggers.com/new-data-sources-for-r/
+  
+  table.result<-
+  for (title in list.titles )
+  {
+    
+    title <- lapply(title,function (x) solveRedirect(x, wiki))
+    target<- gsub(" ", "_", target)
+    print(title )
+    pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
+    pageviews <- subset(pageviews, select=c(timestamp, views) )
+    table.result<- rbind(table.result, data.frame(title=target, avg.pageviews=mean(pageviews$mean,sd = sd(pageviews$views), max=(pageviews$views), min=(pageviews$views))))
+  }
+  
+return(table.result)  
+
+}
+  
+  
+  
+  
+
+
+
+
 nameToSaveFile<- function(term, ...) {
   #'@param term the name of file to be saved and removes all possible signs that can cause interference 
   #'#'@param \dots Arguments to be passed to methods
