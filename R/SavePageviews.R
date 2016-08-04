@@ -117,7 +117,7 @@ complementPageviews <- function (df, source.folder, end.date, flag, project.code
 
 
 
-getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, project.code="en.wikipedia",platform.code="all")
+getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, project.code="en.wikipedia",platform.code="all", wiki="en")
 {
   
   
@@ -125,7 +125,7 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
   ########## Finding the pageviews of the page and all redirects
   #  Returns all the pageviews per date of all the redirects of a Wikipedia article (including latest version)
   #' Args:
-  #'  list.titles : the list of wikipedia articles with the wiki (e.g., "en") in other column
+  #'  list.titles : the list of wikipedia articles
   #'  start.date  : the starting date of the pageviews
   #'  end.date    : the max date up to where we will complement the views
   #'  platform.code : The platform the pageviews came from; one of "all", "desktop", "mobile-web" and "mobile-app". Set to "all" by default (same as pageviews package)
@@ -133,11 +133,10 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
   #'  A dataframe made of the titles of the articles and their corresponding views
   #'  Example of API : https://www.r-bloggers.com/new-data-sources-for-r/
   
-  table.result<-NULL
-  for (i in 1:nrow(list.titles) )
+  table.result<-
+  for (title in list.titles )
   {
-    wiki <- list.titles[i,2]
-    title<- list.titles[i,1]
+    
     title <- lapply(title,function (x) solveRedirect(x, wiki))
     target<- gsub(" ", "_", target)
     print(title )
