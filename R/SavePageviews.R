@@ -132,16 +132,26 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
   #'  returns:
   #'  A dataframe made of the titles of the articles and their corresponding views
   #'  Example of API : https://www.r-bloggers.com/new-data-sources-for-r/
-  print("hello")
   table.result<-NULL
   for (title in list.titles )
   {
     
     target <- lapply(title,function (x) solveRedirect(x, wiki))
     target<- gsub(" ", "_", target)
-    print(title )
+    print(target)
     pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
-    table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=max(pageviews$views), min=min(pageviews$views)))
+    result<- tryCatch({
+      table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=max(pageviews$views), min=min(pageviews$views)))
+    },
+    error = function(e) 
+      
+      print(sprintf("There was an error with %s: %s", target, e))
+    
+    )
+    
+    if( inherits(result, "error") )
+      table.result<- rbind(table.result, data.frame(title=gsub(" ", "_", target), avg.pageviews=NA ,sd = NA, max=NA, min=NA) )
+    
   }
   
 return(table.result)  
