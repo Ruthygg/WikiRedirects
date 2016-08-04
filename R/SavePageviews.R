@@ -141,8 +141,7 @@ getAveragePageviewsfromAPI <- function (list.titles, start.date, end.date, proje
     target<- gsub(" ", "_", target)
     print(title )
     pageviews <-article_pageviews( project = project.code,  article = URLencode(target,reserved=TRUE) ,  start= start.date, end =end.date , platform=platform.code)
-    pageviews <- subset(pageviews, select=c(timestamp, views) )
-    table.result<- rbind(table.result, data.frame(title=target, avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=(pageviews$views), min=(pageviews$views)))
+    table.result<- rbind(table.result, data.frame(title=target, avg.pageviews=mean(pageviews$views) ,sd = sd(pageviews$views), max=max(pageviews$views), min=min(pageviews$views)))
   }
   
 return(table.result)  
